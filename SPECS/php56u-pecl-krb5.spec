@@ -1,3 +1,5 @@
+# IUS spec file for php56u-pecl-krb5, forked from:
+#
 # spec file for php-pecl-krb5
 #
 # Copyright (c) 2014 Remi Collet
@@ -12,17 +14,14 @@
 %{!?__php:       %global __php        %{_bindir}/php}
 
 %global pecl_name krb5
+%global php_base  php56u
 %global with_zts  0%{?__ztsphp:1}
-%if "%{php_version}" < "5.6"
-%global ini_name    %{pecl_name}.ini
-%else
-%global ini_name    40-%{pecl_name}.ini
-%endif
+%global ini_name  40-%{pecl_name}.ini
 
 Summary:        Kerberos authentification extension
-Name:           php-pecl-%{pecl_name}
+Name:           %{php_base}-pecl-%{pecl_name}
 Version:        1.0.0
-Release:        7%{?dist}
+Release:        1.ius%{?dist}
 License:        BSD
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
@@ -33,18 +32,25 @@ Patch0:         krb5-build.patch
 
 BuildRequires:  krb5-devel >= 1.8
 BuildRequires:  pkgconfig(com_err)
-BuildRequires:  php-devel > 5.2
-BuildRequires:  php-pear
+BuildRequires:  %{php_base}-devel > 5.2
+BuildRequires:  %{php_base}-pear
 
 Requires(post): %{__pecl}
 Requires(postun): %{__pecl}
-Requires:       php(zend-abi) = %{php_zend_api}
-Requires:       php(api) = %{php_core_api}
+Requires:       %{php_base}(zend-abi) = %{php_zend_api}
+Requires:       %{php_base}(api) = %{php_core_api}
 
-Provides:       php-%{pecl_name} = %{version}
-Provides:       php-%{pecl_name}%{?_isa} = %{version}
-Provides:       php-pecl(%{pecl_name}) = %{version}
-Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:       php-%{pecl_name} = %{version}-%{release}
+Provides:       php-%{pecl_name}%{?_isa} = %{version}-%{release}
+Provides:       php-pecl(%{pecl_name}) = %{version}-%{release}
+Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}-%{release}
+
+Provides:       %{php_base}-%{pecl_name} = %{version}-%{release}
+Provides:       %{php_base}-%{pecl_name}%{?_isa} = %{version}-%{release}
+Provides:       %{php_base}-pecl(%{pecl_name}) = %{version}-%{release}
+Provides:       %{php_base}-pecl(%{pecl_name})%{?_isa} = %{version}-%{release}
+
+Conflicts:      php-pecl-%{pecl_name} < %{version}
 
 %if 0%{?fedora} < 20 && 0%{?rhel} < 7
 # Filter shared private
@@ -66,7 +72,7 @@ Features:
 Summary:       Kerberos extension developer files (header)
 Group:         Development/Libraries
 Requires:      %{name}%{?_isa} = %{version}-%{release}
-Requires:      php-devel%{?_isa}
+Requires:      %{php_base}-devel%{?_isa}
 
 %description devel
 These are the files needed to compile programs using the Kerberos extension.
@@ -111,7 +117,7 @@ peclbuild() {
     --with-krb5config=%{_bindir}/krb5-config \
     --with-krb5kadm \
     --with-php-config=$1
-make %{?_smp_mflags}
+%{__make} %{?_smp_mflags}
 }
 cd NTS
 
@@ -126,26 +132,26 @@ peclbuild %{_bindir}/zts-php-config
 
 
 %install
-make -C NTS install INSTALL_ROOT=%{buildroot}
+%{__make} -C NTS %{__install} INSTALL_ROOT=%{buildroot}
 
 # install config file
-install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
+%{__install} -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 # Install XML package description
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
+%{__install} -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
 %if %{with_zts}
-make -C ZTS install INSTALL_ROOT=%{buildroot}
+%{__make} -C ZTS %{__install} INSTALL_ROOT=%{buildroot}
 
-install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
+%{__install} -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
 # Test & Documentation
 for i in $(grep 'role="test"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
+do %{__install} -Dpm 644 NTS/$i %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
 done
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do %{__install} -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
@@ -199,6 +205,9 @@ cd ../ZTS
 
 
 %changelog
+* Thu Oct 08 2015 Joshua M. Keyes <joshua.michael.keyes@gmail.com> 1.0.0-1.ius
+- Port from Fedora to IUS
+
 * Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
