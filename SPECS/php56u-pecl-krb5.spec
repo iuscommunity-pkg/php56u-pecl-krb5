@@ -28,7 +28,7 @@ Patch0:         krb5-build.patch
 
 BuildRequires:  krb5-devel >= 1.8
 BuildRequires:  pkgconfig(com_err)
-BuildRequires:  %{php_base}-devel > 5.2
+BuildRequires:  %{php_base}-devel
 BuildRequires:  %{php_base}-pear
 
 Requires(post): %{__pecl}
