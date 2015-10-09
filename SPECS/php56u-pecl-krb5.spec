@@ -118,8 +118,8 @@ peclbuild() {
     --with-php-config=$1
 %{__make} %{?_smp_mflags}
 }
-cd NTS
 
+cd NTS
 %{_bindir}/phpize
 peclbuild %{_bindir}/php-config
 
