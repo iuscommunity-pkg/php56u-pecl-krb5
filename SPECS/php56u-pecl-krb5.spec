@@ -36,19 +36,23 @@ Requires(postun): %{php_base}-pear
 Requires:       %{php_base}(zend-abi) = %{php_zend_api}
 Requires:       %{php_base}(api) = %{php_core_api}
 
+# provide the stock and IUS names without pecl
 Provides:       php-%{pecl_name} = %{version}-%{release}
 Provides:       php-%{pecl_name}%{?_isa} = %{version}-%{release}
-Provides:       php-pecl(%{pecl_name}) = %{version}-%{release}
-Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}-%{release}
-
 Provides:       %{php_base}-%{pecl_name} = %{version}-%{release}
 Provides:       %{php_base}-%{pecl_name}%{?_isa} = %{version}-%{release}
+
+# provide the stock and IUS names in pecl() format
+Provides:       php-pecl(%{pecl_name}) = %{version}-%{release}
+Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}-%{release}
 Provides:       %{php_base}-pecl(%{pecl_name}) = %{version}-%{release}
 Provides:       %{php_base}-pecl(%{pecl_name})%{?_isa} = %{version}-%{release}
 
+# provide the stock name
 Provides:       php-pecl-%{pecl_name} = %{version}-%{release}
 Provides:       php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
 
+# conflict with the stock name
 Conflicts:      php-pecl-%{pecl_name} < %{version}
 
 %if 0%{?fedora} < 20 && 0%{?rhel} < 7
