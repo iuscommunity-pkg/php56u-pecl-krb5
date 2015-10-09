@@ -8,10 +8,6 @@
 #
 # Please, preserve the changelog entries
 #
-%{!?php_inidir:  %global php_inidir   %{_sysconfdir}/php.d}
-%{!?php_incldir: %global php_incldir  %{_includedir}/php}
-%{!?__pecl:      %global __pecl       %{_bindir}/pecl}
-%{!?__php:       %global __php        %{_bindir}/php}
 
 %global pecl_name krb5
 %global php_base  php56u
