@@ -69,6 +69,9 @@ Summary:       Kerberos extension developer files (header)
 Group:         Development/Libraries
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 Requires:      %{php_base}-devel%{?_isa}
+Conflicts:     php-pecl-%{pecl_name}-devel < %{version}
+Provides:      php-pecl-%{pecl_name}-devel = %{version}-%{release}
+Provides:      php-pecl-%{pecl_name}-devel%{?_isa} = %{version}-%{release}
 
 %description devel
 These are the files needed to compile programs using the Kerberos extension.
