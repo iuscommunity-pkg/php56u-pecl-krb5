@@ -128,8 +128,7 @@ peclbuild %{_bindir}/zts-php-config
 
 
 %install
-%{__make} -C NTS %{__install} INSTALL_ROOT=%{buildroot}
-
+%{__make} -C NTS install INSTALL_ROOT=%{buildroot}
 # install config file
 %{__install} -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
@@ -137,8 +136,7 @@ peclbuild %{_bindir}/zts-php-config
 %{__install} -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
 %if %{with_zts}
-%{__make} -C ZTS %{__install} INSTALL_ROOT=%{buildroot}
-
+%{__make} -C ZTS install INSTALL_ROOT=%{buildroot}
 %{__install} -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
