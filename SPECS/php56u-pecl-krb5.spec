@@ -46,6 +46,9 @@ Provides:       %{php_base}-%{pecl_name}%{?_isa} = %{version}-%{release}
 Provides:       %{php_base}-pecl(%{pecl_name}) = %{version}-%{release}
 Provides:       %{php_base}-pecl(%{pecl_name})%{?_isa} = %{version}-%{release}
 
+Provides:       php-pecl-%{pecl_name} = %{version}-%{release}
+Provides:       php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+
 Conflicts:      php-pecl-%{pecl_name} < %{version}
 
 %if 0%{?fedora} < 20 && 0%{?rhel} < 7
