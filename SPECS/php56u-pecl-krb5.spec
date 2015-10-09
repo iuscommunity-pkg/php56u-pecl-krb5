@@ -17,7 +17,7 @@
 Summary:        Kerberos authentification extension
 Name:           %{php_base}-pecl-%{pecl_name}
 Version:        1.0.0
-Release:        1.ius%{?dist}
+Release:        2.ius%{?dist}
 License:        BSD
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
@@ -209,6 +209,11 @@ fi
 
 
 %changelog
+* Fri Oct 09 2015 Carl George <carl.george@rackspace.com> 1.0.0-2.ius
+- Add provides for stock package names
+- Add conflicts for the devel package
+- Explictly require php56u-pear to get pecl
+
 * Thu Oct 08 2015 Joshua M. Keyes <joshua.michael.keyes@gmail.com> 1.0.0-1.ius
 - Port from Fedora to IUS
 
