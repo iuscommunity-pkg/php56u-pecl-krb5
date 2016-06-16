@@ -55,11 +55,10 @@ Provides:       php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
 # conflict with the stock name
 Conflicts:      php-pecl-%{pecl_name} < %{version}
 
-%if 0%{?fedora} < 20 && 0%{?rhel} < 7
-# Filter shared private
+# RPM 4.8
 %{?filter_provides_in: %filter_provides_in %{_libdir}/.*\.so$}
+%{?filter_provides_in: %filter_provides_in %{php_ztsextdir}/.*\.so$}
 %{?filter_setup}
-%endif
 
 
 %description
@@ -209,6 +208,9 @@ fi
 
 
 %changelog
+* Thu Jun 16 2016 Ben Harper <ben.harper@rackspace.com> - 1.0.0-3.ius
+- update filters to include zts
+
 * Fri Oct 09 2015 Carl George <carl.george@rackspace.com> 1.0.0-2.ius
 - Add provides for stock package names
 - Add conflicts for the devel package
