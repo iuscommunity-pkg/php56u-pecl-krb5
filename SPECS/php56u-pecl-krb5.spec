@@ -17,7 +17,7 @@
 Summary:        Kerberos authentification extension
 Name:           %{php_base}-pecl-%{pecl_name}
 Version:        1.0.0
-Release:        2.ius%{?dist}
+Release:        3.ius%{?dist}
 License:        BSD
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
