@@ -16,15 +16,12 @@
 
 Summary:        Kerberos authentification extension
 Name:           %{php_base}-pecl-%{pecl_name}
-Version:        1.0.0
-Release:        3.ius%{?dist}
+Version:        1.1.0
+Release:        1.ius%{?dist}
 License:        BSD
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
-
-# http://svn.php.net/viewvc?view=revision&revision=333127
-Patch0:         krb5-build.patch
 
 BuildRequires:  krb5-devel >= 1.8
 BuildRequires:  pkgconfig(com_err)
@@ -88,13 +85,9 @@ These are the files needed to compile programs using the Kerberos extension.
 mv %{pecl_name}-%{version} NTS
 
 cd NTS
-%patch0 -p0 -b .build
-
-# http://svn.php.net/viewvc?view=revision&revision=333126
-chmod -x php_krb5_gssapi.h
 
 # Sanity check, really often broken
-extver=$(sed -n '/#define PHP_KRB5_EXT_VERSION/{s/.* "//;s/".*$//;p}' php_krb5.h)
+extver=$(sed -n '/#define PHP_KRB5_VERSION/{s/.* "//;s/".*$//;p}' php_krb5.h)
 if test "x${extver}" != "x%{version}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}.
    exit 1
@@ -208,6 +201,9 @@ fi
 
 
 %changelog
+* Mon Jul 18 2016 Carl George <carl.george@rackspace.com> - 1.1.0-1.ius
+- Latest upstream
+
 * Thu Jun 16 2016 Ben Harper <ben.harper@rackspace.com> - 1.0.0-3.ius
 - update filters to include zts
 
