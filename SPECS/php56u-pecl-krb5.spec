@@ -16,7 +16,7 @@
 
 Summary:        Kerberos authentification extension
 Name:           %{php_base}-pecl-%{pecl_name}
-Version:        1.1.0
+Version:        1.1.1
 Release:        1.ius%{?dist}
 License:        BSD
 Group:          Development/Languages
@@ -201,6 +201,9 @@ fi
 
 
 %changelog
+* Mon Nov 14 2016 Ben Harper <ben.harper@rackspace.com> - 1.1.1-1.ius
+- Latest upstream
+
 * Mon Jul 18 2016 Carl George <carl.george@rackspace.com> - 1.1.0-1.ius
 - Latest upstream
 
